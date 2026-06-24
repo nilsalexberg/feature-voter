@@ -37,4 +37,13 @@ Summary: Created Django voting app, registered in settings, added simple test, a
 
 [2026-06-24T15:29:42-03:00]
 Instruction: /caveman create endpoints for login and forgot/reset password (no register). use JWT. add /me endpoint.
-Summary: In planning mode, researching and designing the JWT auth endpoints (login, forgot password, reset password, /me).
+Summary: Installed SimpleJWT, configured DRF settings, implemented Views/Serializers for profile and password reset, mapped URLs, and added backend unit tests in tests.py.
+
+[2026-06-24T15:41:13-03:00]
+Instruction: /caveman move auth code to a new django app just for auth. voting should be only for voting features. core/urls.py should group urls with "api/" prefix and add urls from differente apps.
+Summary: Created new Django app 'accounts', moved serializers, views, urls, and tests into it. Reconfigured settings and core/urls.py routes. Cleaned voting app files. Verified all 9 tests passed.
+
+[2026-06-24T15:49:09-03:00]
+Instruction: group these urls with same prefix
+Summary: Grouped the API URLs under an 'api/' path using a nested URL list and include().
+
