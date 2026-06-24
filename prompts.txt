@@ -5,3 +5,13 @@ Instruction: Create a AGENTS.md file in the project root with the following inst
 Every time you receive a new instruction or prompt, append it to prompts.txt in the project root with a timestamp (ISO 8601) and a brief summary of what you did in response. Create the file if it doesn't exist. Keep this log updated throughout all sessions.
 
 Summary: Created AGENTS.md with prompt logging rules and initialized prompts.txt.
+
+[2026-06-24T14:52:10-03:00]
+Instruction: /caveman add to root a makefile with commands:
+- to install backend with poetry and frontend with pnpm
+- to make migrations and migrate
+- to run backend server
+- to run frontend (dev)
+- setup, that runs install and migrations
+
+Summary: Created Makefile in project root with commands for setup, install, migrations, and running development servers.
