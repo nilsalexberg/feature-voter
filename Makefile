@@ -21,3 +21,5 @@ run-frontend:
 	cd frontend && pnpm run dev
 
 setup: install makemigrations migrate
+	cd backend && poetry run python manage.py createsuperuser
+
