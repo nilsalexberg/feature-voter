@@ -27,3 +27,14 @@ Instruction: /caveman initial setup for django:
 
 Summary: Set up gitignore, .env.example, configured decouple, corsheaders, and sqlite database in settings.py.
 
+[2026-06-24T15:20:57-03:00]
+Instruction: /caveman add createsuperuser in setup command in Makefile
+Summary: Added createsuperuser command to setup target in Makefile.
+
+[2026-06-24T15:27:25-03:00]
+Instruction: /caveman setup backend tests, create simple test to validate, add test command in Makefile
+Summary: Created Django voting app, registered in settings, added simple test, added test-backend command to Makefile.
+
+[2026-06-24T15:29:42-03:00]
+Instruction: /caveman create endpoints for login and forgot/reset password (no register). use JWT. add /me endpoint.
+Summary: In planning mode, researching and designing the JWT auth endpoints (login, forgot password, reset password, /me).

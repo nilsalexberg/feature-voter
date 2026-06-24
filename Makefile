@@ -1,4 +1,4 @@
-.PHONY: install-backend install-frontend install makemigrations migrate run-backend run-frontend setup
+.PHONY: install-backend install-frontend install makemigrations migrate run-backend run-frontend setup test-backend
 
 install-backend:
 	cd backend && poetry install
@@ -22,4 +22,8 @@ run-frontend:
 
 setup: install makemigrations migrate
 	cd backend && poetry run python manage.py createsuperuser
+
+test-backend:
+	cd backend && poetry run python manage.py test
+
 
