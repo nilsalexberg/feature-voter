@@ -15,3 +15,15 @@ Instruction: /caveman add to root a makefile with commands:
 - setup, that runs install and migrations
 
 Summary: Created Makefile in project root with commands for setup, install, migrations, and running development servers.
+
+[2026-06-24T15:09:40-03:00]
+Instruction: /caveman initial setup for django:
+- add gitignore
+- create .env.example
+- add corsheaders
+- use decouple
+- allow localhost:5173
+- use sqlite for local dev
+
+Summary: Set up gitignore, .env.example, configured decouple, corsheaders, and sqlite database in settings.py.
+
