@@ -121,3 +121,8 @@ Implemented full feature list with search (debounced 300ms), sort (4 ordering op
 2026-06-25T00:00:00Z - Fix: login page reloads on wrong credentials. Added early return in request() when no token present and 401 received, skipping refresh flow and clearSession() call.
 2026-06-25T20:36:08Z - Custom Django admin user creation: email+password only, username auto-set to email. Implemented EmailUserCreationForm and EmailUserAdmin in accounts/admin.py.
 2026-06-25T20:41:48Z — Install and setup django-unfold: added django-unfold 0.99.0 via poetry, constrained python <4.0, prepended 'unfold' to INSTALLED_APPS before django.contrib.admin.
+
+---
+2026-06-25T00:00:00Z
+Prompt: Implement Dropdown and Dialog (modal) UI components in frontend/src/ui/, add Select docs, update docs/ui-lib.md.
+Response: Created Dropdown.tsx (trigger+items menu, click-outside+Escape close, danger/disabled item support), Dialog.tsx (native <dialog> + showModal, portal, backdrop click/Escape/close button, size variants). Exported both from index.ts. Added Select, Dropdown, Dialog sections to docs/ui-lib.md.

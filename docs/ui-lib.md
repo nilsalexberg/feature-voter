@@ -65,6 +65,90 @@ import { Textarea } from '@/ui';
 
 Same props as `Input`. Resizable vertically, min-height 80px.
 
+## Select
+
+```tsx
+import { Select } from '@/ui';
+
+<Select label="Status" defaultValue="">
+  <option value="" disabled>Pick one</option>
+  <option value="open">Open</option>
+  <option value="closed">Closed</option>
+</Select>
+<Select label="Priority" error="Required" />
+```
+
+| Prop | Type | Notes |
+|------|------|-------|
+| `label` | `string` | Renders `<label>` above, auto-links via `id` |
+| `error` | `string` | Red border + message below |
+
+Wraps native `<select>`. Forwards all native props. Pass `<option>` elements as children.
+
+## Dropdown
+
+Custom menu triggered by arbitrary content. Not a form input — use `Select` for form fields.
+
+```tsx
+import { Dropdown } from '@/ui';
+import { Button } from '@/ui';
+
+<Dropdown
+  trigger={<Button variant="secondary">Actions</Button>}
+  align="right"
+  items={[
+    { label: 'Edit', onClick: () => {} },
+    { label: 'Duplicate', onClick: () => {} },
+    { label: 'Delete', onClick: () => {}, danger: true },
+    { label: 'Archived', onClick: () => {}, disabled: true },
+  ]}
+/>
+```
+
+| Prop | Type | Default | Notes |
+|------|------|---------|-------|
+| `trigger` | `ReactNode` | — | Element that opens/closes the menu |
+| `items` | `DropdownItem[]` | — | Menu entries |
+| `align` | `left \| right` | `left` | Menu alignment relative to trigger |
+
+`DropdownItem` fields: `label` (string), `onClick` (() => void), `disabled?` (boolean), `danger?` (boolean — renders in `text-danger`).
+
+Closes on outside click and `Escape`.
+
+## Dialog
+
+Modal dialog using native `<dialog>` + `showModal()`. Rendered into `document.body` via portal.
+
+```tsx
+import { Dialog } from '@/ui';
+import { Button } from '@/ui';
+
+const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>Open</Button>
+
+<Dialog
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Confirm action"
+  size="sm"
+>
+  <p className="text-sm text-muted">This cannot be undone.</p>
+  <div className="mt-4 flex justify-end gap-2">
+    <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+    <Button onClick={handleConfirm}>Confirm</Button>
+  </div>
+</Dialog>
+```
+
+| Prop | Type | Default | Notes |
+|------|------|---------|-------|
+| `open` | `boolean` | — | Controls visibility |
+| `onClose` | `() => void` | — | Called on backdrop click, `Escape`, or close button |
+| `title` | `string` | — | Renders header with close button; omit for bare dialog |
+| `size` | `sm \| md \| lg` | `md` | Max-width: 384 / 448 / 512px |
+| `children` | `ReactNode` | — | Dialog body content |
+
 ## Extending
 
 Add new components to `src/ui/`, export from `src/ui/index.ts`. Use existing tokens — do not hardcode colors or fonts.
