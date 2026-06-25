@@ -51,3 +51,19 @@ Summary: Grouped the API URLs under an 'api/' path using a nested URL list and i
 [2026-06-24T16:10:00-03:00]
 Instruction: /frontend-design init tailwind in frontend, create small ui lib (buttons, input fields), write concise documentation for ui lib in docs/, add instructions in AGENTS.md to prioritize ui lib usage and extend it when needed.
 Summary: Installed Tailwind v4 + @tailwindcss/vite. Created src/index.css with @theme tokens (colors, fonts). Created src/ui/Button.tsx, Input.tsx, Textarea.tsx, index.ts. Wrote docs/ui-lib.md. Added UI lib instructions to AGENTS.md.
+
+---
+2026-06-25T12:40:00Z | Implement auth template + auth pages
+Prompt: /frontend-design implement auth template + auth pages (login, forgot password, reset password)
+Actions:
+- Installed react-router-dom v7
+- Added @/ path alias (vite.config.ts + tsconfig.app.json)
+- Added --color-ink (#0F1F4A) token to index.css
+- Created src/pages/auth/AuthLayout.tsx (split layout: dark navy left panel with serif quote + trending features list; form right)
+- Created src/pages/auth/LoginPage.tsx
+- Created src/pages/auth/ForgotPasswordPage.tsx (with sent confirmation state)
+- Created src/pages/auth/ResetPasswordPage.tsx (idle / expired / done states)
+- Updated App.tsx with BrowserRouter + routes for /login, /forgot-password, /reset-password
+[2026-06-25T13:58:04Z] refactor: move inline grain texture style to .grain-overlay CSS class
+  - Added .grain-overlay to index.css @layer components
+  - Replaced inline style block in AuthLayout.tsx:10-17 with className
