@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDeleteFeature } from '@/hooks/useDeleteFeature';
 import type { FeatureRequest } from '@/services/features';
+import { Dialog, Button } from '@/ui';
 
 interface FeatureCardProps {
   feature: FeatureRequest;
@@ -22,7 +23,7 @@ export function FeatureCard({
   isOwner,
   onDelete,
 }: FeatureCardProps) {
-  const [isConfirming, setIsConfirming] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const { deleteFeature, isPending: isDeleting } = useDeleteFeature();
 
   async function handleDelete() {
@@ -68,55 +69,53 @@ export function FeatureCard({
 
       {isOwner && (
         <div className="flex items-center gap-1 shrink-0 pt-0.5">
-          {isConfirming ? (
-            <>
-              <span className="text-[11px] text-muted">Delete?</span>
-              <button
-                onClick={() => setIsConfirming(false)}
-                className="text-[11px] text-muted hover:text-text transition-colors px-1.5 py-0.5 rounded"
-              >
-                Cancel
-              </button>
-              <button
+          <Link
+            to={`/features/${feature.id}/edit`}
+            aria-label="Edit"
+            className="p-1 rounded text-muted hover:text-text transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <path
+                d="M9.5 2.5L11.5 4.5L5 11H3V9L9.5 2.5Z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+          <button
+            onClick={() => setDeleteOpen(true)}
+            aria-label="Delete"
+            className="p-1 rounded text-muted hover:text-danger transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <path
+                d="M2 4H12M5 4V2.5H9V4M4.5 4L5 11H9L9.5 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <Dialog
+            open={deleteOpen}
+            onClose={() => setDeleteOpen(false)}
+            title="Delete feature"
+            size="sm"
+          >
+            <p className="text-sm text-muted">
+              Delete &ldquo;{feature.title}&rdquo;? This cannot be undone.
+            </p>
+            <div className="mt-4 flex justify-end gap-2">
+              <Button variant="secondary" onClick={() => setDeleteOpen(false)}>Cancel</Button>
+              <Button
                 onClick={handleDelete}
                 disabled={isDeleting}
-                className="text-[11px] text-danger hover:text-danger/80 transition-colors px-1.5 py-0.5 rounded disabled:opacity-40 disabled:pointer-events-none"
               >
-                {isDeleting ? '…' : 'Yes'}
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                to={`/features/${feature.id}/edit`}
-                aria-label="Edit"
-                className="p-1 rounded text-muted hover:text-text transition-colors"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path
-                    d="M9.5 2.5L11.5 4.5L5 11H3V9L9.5 2.5Z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-              <button
-                onClick={() => setIsConfirming(true)}
-                aria-label="Delete"
-                className="p-1 rounded text-muted hover:text-danger transition-colors"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path
-                    d="M2 4H12M5 4V2.5H9V4M4.5 4L5 11H9L9.5 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-            </>
-          )}
+                {isDeleting ? 'Deleting…' : 'Delete'}
+              </Button>
+            </div>
+          </Dialog>
         </div>
       )}
     </div>

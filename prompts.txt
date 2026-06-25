@@ -126,3 +126,9 @@ Implemented full feature list with search (debounced 300ms), sort (4 ordering op
 2026-06-25T00:00:00Z
 Prompt: Implement Dropdown and Dialog (modal) UI components in frontend/src/ui/, add Select docs, update docs/ui-lib.md.
 Response: Created Dropdown.tsx (trigger+items menu, click-outside+Escape close, danger/disabled item support), Dialog.tsx (native <dialog> + showModal, portal, backdrop click/Escape/close button, size variants). Exported both from index.ts. Added Select, Dropdown, Dialog sections to docs/ui-lib.md.
+
+---
+2026-06-25T00:01:00Z
+Prompt: AppLayout user email → Dropdown (logout inside, triggers Dialog to confirm). FeatureCard delete → Dialog confirm instead of inline state.
+Response: AppLayout: added logoutOpen state, replaced email+logout with Dropdown trigger (email button) + "Log out" danger item opening Dialog. FeatureCard: replaced isConfirming inline UI with deleteOpen state + Dialog confirm. Both use Dialog/Button/Dropdown from @/ui.
+2026-06-25T20:57:01Z | Add cursor pointer to all button elements | Added 'button { cursor: pointer; }' to @layer base in frontend/src/index.css
