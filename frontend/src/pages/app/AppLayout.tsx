@@ -1,7 +1,10 @@
 import type { ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
+import { clearSession } from '@/services/api';
 
 export function AppLayout({ children }: { children: ReactNode }) {
+  const { user } = useCurrentUser();
   return (
     <div className="min-h-screen flex flex-col bg-bg">
       <header className="sticky top-0 z-10 bg-surface/90 backdrop-blur-sm border-b border-border">
@@ -12,7 +15,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
               featurevoter
             </span>
           </Link>
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-4">
             <NavLink
               to="/"
               end
@@ -24,6 +27,17 @@ export function AppLayout({ children }: { children: ReactNode }) {
             >
               Features
             </NavLink>
+            {user && (
+              <span className="text-sm text-muted">{user.email}</span>
+            )}
+            {user && (
+              <button
+                onClick={clearSession}
+                className="text-sm px-3 py-1.5 rounded-md text-muted hover:text-text transition-colors"
+              >
+                Logout
+              </button>
+            )}
           </nav>
         </div>
       </header>

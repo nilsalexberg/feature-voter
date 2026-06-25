@@ -83,3 +83,10 @@ Created src/services/api.ts (base HTTP client with ApiError), src/services/auth.
 2026-06-25T00:00:00Z
 Prompt: Create app layout for auth-protected routes and empty home page (no auth validation yet). Redirect to home after login.
 Done: Created AppLayout.tsx (sticky header, logo, nav), HomePage.tsx (empty state with display serif), updated App.tsx to add "/" route. useLogin already called navigate('/') so redirect was already wired.
+
+2026-06-25T00:00:00Z | Implement frontend route protection: unauthenticated users redirect to /login. Created ProtectedRoute component using localStorage access_token check; wrapped non-auth routes in App.tsx.
+
+2026-06-25T00:00:00Z | Move auth token injection to api.ts request(), remove accessToken param from authService.me(), create useCurrentUser hook, show user email in AppLayout nav.
+
+2026-06-25T00:00:00Z | Implement refresh token: intercept 401 in api.ts, call /api/auth/refresh/, retry original request. Concurrent 401s share single refresh promise. Refresh failure clears session and redirects to /login.
+2026-06-25T17:04:53Z | Refactor api.ts: extract doFetch helper to eliminate duplicate fetch+headers logic in request() initial call and retry call

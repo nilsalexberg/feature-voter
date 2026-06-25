@@ -17,8 +17,5 @@ export const authService = {
       password,
     }),
 
-  me: (accessToken: string) =>
-    api.get<User>('/api/auth/me/', {
-      Authorization: `Bearer ${accessToken}`,
-    }),
+  me: () => api.get<User>('/api/auth/me/'),
 };
