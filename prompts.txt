@@ -110,3 +110,9 @@ Actions: Created voting/serializers.py (FeatureRequestSerializer with has_voted 
 2026-06-25T00:00:00Z - Implement FE service layer and custom hooks for voting API
 Created src/services/features.ts (featureService with list/get/create/update/remove/vote/unvote).
 Created hooks: useFeatureRequests, useFeatureRequest, useCreateFeature, useUpdateFeature, useDeleteFeature, useVote, useUnvote.
+
+---
+2026-06-25T00:00:00Z | Implement feature request list on HomePage
+Implemented full feature list with search (debounced 300ms), sort (4 ordering options), pagination, and optimistic vote/unvote. Added Select UI primitive. Created NewFeaturePage stub at /features/new. Wired route in App.tsx.
+
+2026-06-25T00:00:00Z | Refactor HomePage.tsx: extracted FeatureCard and Pagination into separate components (FeatureCard.tsx, Pagination.tsx). Updated HomePage to import and use them.
