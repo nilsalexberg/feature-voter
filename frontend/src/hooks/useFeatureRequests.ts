@@ -14,6 +14,7 @@ type State = {
 
 export function useFeatureRequests(params?: FeatureRequestParams) {
   const [state, setState] = useState<State>({ data: null, isPending: true, error: null });
+  const [refetchKey, setRefetchKey] = useState(0);
 
   useEffect(() => {
     setState((prev) => ({ ...prev, isPending: true, error: null }));
@@ -24,7 +25,7 @@ export function useFeatureRequests(params?: FeatureRequestParams) {
         setState({ data: null, isPending: false, error: 'Failed to load feature requests.' }),
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params?.page, params?.page_size, params?.ordering, params?.search, params?.author]);
+  }, [params?.page, params?.page_size, params?.ordering, params?.search, params?.author, refetchKey]);
 
-  return state;
+  return { ...state, refetch: () => setRefetchKey((k) => k + 1) };
 }

@@ -5,6 +5,7 @@ import { FeatureCard } from './FeatureCard';
 import { Pagination } from './Pagination';
 import { Button, Input, Select } from '@/ui';
 import { useFeatureRequests } from '@/hooks/useFeatureRequests';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useVote } from '@/hooks/useVote';
 import { useUnvote } from '@/hooks/useUnvote';
 import type { FeatureRequestOrdering } from '@/services/features';
@@ -30,13 +31,14 @@ export function HomePage() {
   const [voteOverrides, setVoteOverrides] = useState<Map<number, VoteOverride>>(new Map());
   const [pendingVoteId, setPendingVoteId] = useState<number | null>(null);
 
-  const { data, isPending, error } = useFeatureRequests({
+  const { data, isPending, error, refetch } = useFeatureRequests({
     page,
     page_size: PAGE_SIZE,
     ordering,
     search: search || undefined,
   });
 
+  const { user: currentUser } = useCurrentUser();
   const { vote } = useVote();
   const { unvote } = useUnvote();
 
@@ -176,6 +178,8 @@ export function HomePage() {
                   voteCount={voteCount}
                   isPending={pendingVoteId === feature.id}
                   onVoteToggle={handleVoteToggle}
+                  isOwner={currentUser?.username === feature.author.username}
+                  onDelete={refetch}
                 />
               );
             })}
