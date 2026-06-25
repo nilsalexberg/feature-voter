@@ -135,3 +135,5 @@ Response: AppLayout: added logoutOpen state, replaced email+logout with Dropdown
 2026-06-25T21:01:28Z — Add markdown editor to FeatureForm description field; render formatted markdown in FeatureCard. Installed react-markdown + rehype-sanitize. Added MarkdownContent and MarkdownEditor UI primitives. Added .markdown-content prose styles to index.css.
 
 2026-06-25T00:00:00Z | Added 'Markdown supported ↗' helper link to MarkdownEditor label row; added MarkdownEditor and MarkdownContent docs to docs/ui-lib.md
+2026-06-25T22:16:22Z — Add dark/light theme selector to AppLayout nav. Created useTheme hook (localStorage + prefers-color-scheme), dark token overrides in index.css (.dark class on html), sun/moon icon toggle button in nav.
+2026-06-25T22:20:40Z — Replace hand-rolled SVG icons with lucide-react. Sun/Moon in AppLayout theme toggle, Pencil/Trash2 in FeatureCard edit/delete actions.

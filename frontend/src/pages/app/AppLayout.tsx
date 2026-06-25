@@ -1,11 +1,14 @@
 import { useState, type ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { Sun, Moon } from 'lucide-react';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
+import { useTheme } from '@/hooks/useTheme';
 import { clearSession } from '@/services/api';
 import { Dropdown, Dialog, Button } from '@/ui';
 
 export function AppLayout({ children }: { children: ReactNode }) {
   const { user } = useCurrentUser();
+  const { theme, toggleTheme } = useTheme();
   const [logoutOpen, setLogoutOpen] = useState(false);
   return (
     <div className="min-h-screen flex flex-col bg-bg">
@@ -18,6 +21,17 @@ export function AppLayout({ children }: { children: ReactNode }) {
             </span>
           </Link>
           <nav className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+              className="w-7 h-7 flex items-center justify-center rounded-md text-muted hover:text-text hover:bg-surface transition-colors"
+            >
+              {theme === 'light' ? (
+                <Moon size={15} aria-hidden="true" />
+              ) : (
+                <Sun size={15} aria-hidden="true" />
+              )}
+            </button>
             {user && (
               <Dropdown
                 trigger={

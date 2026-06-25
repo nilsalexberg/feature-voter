@@ -48,7 +48,7 @@ export function Dialog({ open, onClose, title, children, size = 'md' }: DialogPr
     >
       {title && (
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
-          <h2 className="font-display text-base font-medium text-text">{title}</h2>
+          <h2 className="font-display text-base font-medium text-text italic">{title}</h2>
           <button
             onClick={onClose}
             aria-label="Close dialog"

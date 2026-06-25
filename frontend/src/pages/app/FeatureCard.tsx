@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Pencil, Trash2 } from 'lucide-react';
 import { useDeleteFeature } from '@/hooks/useDeleteFeature';
 import type { FeatureRequest } from '@/services/features';
 import { Dialog, Button, MarkdownContent } from '@/ui';
@@ -74,28 +75,14 @@ export function FeatureCard({
             aria-label="Edit"
             className="p-1 rounded text-muted hover:text-text transition-colors"
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-              <path
-                d="M9.5 2.5L11.5 4.5L5 11H3V9L9.5 2.5Z"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Pencil size={14} aria-hidden="true" />
           </Link>
           <button
             onClick={() => setDeleteOpen(true)}
             aria-label="Delete"
             className="p-1 rounded text-muted hover:text-danger transition-colors"
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-              <path
-                d="M2 4H12M5 4V2.5H9V4M4.5 4L5 11H9L9.5 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Trash2 size={14} aria-hidden="true" />
           </button>
           <Dialog
             open={deleteOpen}

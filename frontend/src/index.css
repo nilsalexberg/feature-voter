@@ -112,6 +112,18 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  html.dark {
+    --color-bg: #111110;
+    --color-surface: #1C1C1A;
+    --color-border: #2C2C29;
+    --color-text: #F0EFEA;
+    --color-muted: #7A7A76;
+    --color-accent: #5B8DF8;
+    --color-vote: #F07030;
+    --color-danger: #E05040;
+    --color-ink: #C4D0F5;
+  }
+
   *, *::before, *::after {
     box-sizing: border-box;
   }
