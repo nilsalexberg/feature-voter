@@ -51,6 +51,11 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await doFetch(path, options, token);
 
   if (response.status === 401) {
+    if (!token) {
+      const data = await response.json().catch(() => null);
+      throw new ApiError(response.status, data);
+    }
+
     try {
       if (!refreshPromise) {
         refreshPromise = refreshAccessToken().finally(() => {
