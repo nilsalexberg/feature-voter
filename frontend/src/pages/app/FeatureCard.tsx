@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDeleteFeature } from '@/hooks/useDeleteFeature';
 import type { FeatureRequest } from '@/services/features';
-import { Dialog, Button } from '@/ui';
+import { Dialog, Button, MarkdownContent } from '@/ui';
 
 interface FeatureCardProps {
   feature: FeatureRequest;
@@ -57,9 +57,9 @@ export function FeatureCard({
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-text leading-snug">{feature.title}</p>
         {feature.description && (
-          <p className="text-xs text-muted mt-1 line-clamp-2 leading-relaxed">
-            {feature.description}
-          </p>
+          <div className="text-xs text-muted mt-1 leading-relaxed [&_.markdown-content]:text-xs [&_.markdown-content]:text-muted">
+            <MarkdownContent content={feature.description} />
+          </div>
         )}
         <p className="text-[11px] text-muted mt-1.5">
           by {feature.author.username} &middot;{' '}

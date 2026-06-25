@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, Textarea } from '@/ui';
+import { Button, Input, MarkdownEditor } from '@/ui';
 
 interface FeatureFormProps {
   defaultValues?: { title: string; description: string };
@@ -44,7 +44,7 @@ export function FeatureForm({
         disabled={isPending}
         autoFocus
       />
-      <Textarea
+      <MarkdownEditor
         label="Description"
         placeholder="Describe the feature in more detail…"
         value={description}

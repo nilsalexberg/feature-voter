@@ -15,3 +15,9 @@ export type { DropdownProps, DropdownItem } from './Dropdown';
 
 export { Dialog } from './Dialog';
 export type { DialogProps } from './Dialog';
+
+export { MarkdownContent } from './MarkdownContent';
+export type { } from './MarkdownContent';
+
+export { MarkdownEditor } from './MarkdownEditor';
+export type { MarkdownEditorProps } from './MarkdownEditor';

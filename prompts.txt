@@ -132,3 +132,6 @@ Response: Created Dropdown.tsx (trigger+items menu, click-outside+Escape close, 
 Prompt: AppLayout user email → Dropdown (logout inside, triggers Dialog to confirm). FeatureCard delete → Dialog confirm instead of inline state.
 Response: AppLayout: added logoutOpen state, replaced email+logout with Dropdown trigger (email button) + "Log out" danger item opening Dialog. FeatureCard: replaced isConfirming inline UI with deleteOpen state + Dialog confirm. Both use Dialog/Button/Dropdown from @/ui.
 2026-06-25T20:57:01Z | Add cursor pointer to all button elements | Added 'button { cursor: pointer; }' to @layer base in frontend/src/index.css
+2026-06-25T21:01:28Z — Add markdown editor to FeatureForm description field; render formatted markdown in FeatureCard. Installed react-markdown + rehype-sanitize. Added MarkdownContent and MarkdownEditor UI primitives. Added .markdown-content prose styles to index.css.
+
+2026-06-25T00:00:00Z | Added 'Markdown supported ↗' helper link to MarkdownEditor label row; added MarkdownEditor and MarkdownContent docs to docs/ui-lib.md

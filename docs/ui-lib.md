@@ -149,6 +149,42 @@ const [open, setOpen] = useState(false);
 | `size` | `sm \| md \| lg` | `md` | Max-width: 384 / 448 / 512px |
 | `children` | `ReactNode` | — | Dialog body content |
 
+## MarkdownEditor
+
+Textarea with Write/Preview tabs. Preview renders CommonMark via `MarkdownContent`. Shows a "Markdown supported ↗" link in the label row.
+
+```tsx
+import { MarkdownEditor } from '@/ui';
+
+<MarkdownEditor
+  label="Description"
+  placeholder="Describe the feature…"
+  value={description}
+  onChange={(e) => setDescription(e.target.value)}
+  rows={5}
+  disabled={isPending}
+/>
+```
+
+Extends `TextareaProps` minus `label` (label is its own optional prop). Accepts all Textarea/native textarea props.
+
+## MarkdownContent
+
+Renders a markdown string as sanitized HTML. Uses `react-markdown` + `rehype-sanitize` (CommonMark, XSS-safe).
+
+```tsx
+import { MarkdownContent } from '@/ui';
+
+<MarkdownContent content={markdownString} className="prose" />
+```
+
+| Prop | Type | Notes |
+|------|------|-------|
+| `content` | `string` | Raw markdown |
+| `className` | `string` | Added to wrapper `div.markdown-content` |
+
+Style rendered elements via `.markdown-content` in CSS (e.g. `h1`, `p`, `code`, `blockquote`).
+
 ## Extending
 
 Add new components to `src/ui/`, export from `src/ui/index.ts`. Use existing tokens — do not hardcode colors or fonts.
