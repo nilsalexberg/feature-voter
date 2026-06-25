@@ -34,7 +34,7 @@ class ForgotPasswordView(APIView):
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
             
             # Send email via console/mock backend
-            reset_link = f"http://localhost:5173/reset-password?uidb64={uidb64}&token={token}"
+            reset_link = f"http://localhost:5173/reset-password/{uidb64}/{token}"
             send_mail(
                 subject="Password Reset Request",
                 message=f"Use this link to reset password: {reset_link}",

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { authService } from '@/services/auth';
 import { ApiError } from '@/services/api';
 
@@ -7,9 +7,7 @@ type PageState = 'idle' | 'done' | 'expired';
 type State = { pageState: PageState; isPending: boolean; error: string | null };
 
 export function useResetPassword() {
-  const [searchParams] = useSearchParams();
-  const uidb64 = searchParams.get('uidb64');
-  const token = searchParams.get('token');
+  const { uidb64, token } = useParams<{ uidb64: string; token: string }>();
 
   const [state, setState] = useState<State>({
     pageState: uidb64 && token ? 'idle' : 'expired',
