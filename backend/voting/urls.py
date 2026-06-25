@@ -1,4 +1,8 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
-]
+from .views import FeatureRequestViewSet
+
+router = DefaultRouter()
+router.register("feature-requests", FeatureRequestViewSet, basename="featurerequest")
+
+urlpatterns = router.urls

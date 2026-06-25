@@ -93,4 +93,15 @@ Done: Created AppLayout.tsx (sticky header, logo, nav), HomePage.tsx (empty stat
 2026-06-25T17:20:09Z
 Prompt: Implement FeatureRequest + FeatureVote models in backend/voting/. Denormalized vote_count with atomic F() increment/decrement via signals. UniqueConstraint on (feature_request, voter). Register FeatureRequest in admin with FeatureVoteInline (readonly).
 Actions: Wrote models.py, signals.py, updated apps.py (ready hook), updated admin.py, generated 0001_initial migration.
+2026-06-25T18:30:00Z | All voting endpoints require authentication
+Prompt: all endpoints should require authentication
+Actions: Changed permission_classes from [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly] to [IsAuthenticated, IsOwnerOrReadOnly]. Updated docs/api-voting.md auth note.
+---
+2026-06-25T19:00:00Z | Write tests for all voting endpoints
+Prompt: write tests to validate all endpoints in voting/urls.py
+Actions: Replaced stub in voting/tests.py with 41 tests across 6 classes: AuthRequiredTests, ListTests (pagination, filter, search, ordering), RetrieveTests, CreateTests, UpdateTests, DeleteTests, VoteTests. All 41 pass.
+---
+2026-06-25T18:00:00Z | Implement voting API endpoints
+Prompt: implement endpoints for voting: list feature requests (pagination, sorting, filter by owner, search), create, edit (owner only), delete (owner only), vote, unvote. Write doc in docs/.
+Actions: Created voting/serializers.py (FeatureRequestSerializer with has_voted via DB annotation), voting/permissions.py (IsOwnerOrReadOnly), voting/views.py (FeatureRequestViewSet with pagination/filtering/ordering, vote @action), updated voting/urls.py (DefaultRouter). Wrote docs/api-voting.md. Django check: 0 issues.
 ---
