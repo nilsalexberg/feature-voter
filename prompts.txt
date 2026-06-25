@@ -106,3 +106,7 @@ Prompt: implement endpoints for voting: list feature requests (pagination, sorti
 Actions: Created voting/serializers.py (FeatureRequestSerializer with has_voted via DB annotation), voting/permissions.py (IsOwnerOrReadOnly), voting/views.py (FeatureRequestViewSet with pagination/filtering/ordering, vote @action), updated voting/urls.py (DefaultRouter). Wrote docs/api-voting.md. Django check: 0 issues.
 ---
 2026-06-25T00:00:00Z - Fix failing auth tests: changed test login data from `username` to `email` field (serializer uses email-based auth), changed serializer to raise `AuthenticationFailed` (401) instead of `ValidationError` (400) for invalid credentials.
+
+2026-06-25T00:00:00Z - Implement FE service layer and custom hooks for voting API
+Created src/services/features.ts (featureService with list/get/create/update/remove/vote/unvote).
+Created hooks: useFeatureRequests, useFeatureRequest, useCreateFeature, useUpdateFeature, useDeleteFeature, useVote, useUnvote.
