@@ -14,3 +14,10 @@ Core actions:
 - `backend/`: Django project.
 - `frontend/`: React project.
 - `docs/`: Markdown files for documentation.
+
+## UI Library
+Use `frontend/src/ui/` for all UI components. Import from `@/ui`.
+
+- New primitives → add to `src/ui/` and export from `src/ui/index.ts`.
+- No hardcoded colors/fonts — use Tailwind tokens (`bg-accent`, `text-muted`, etc.) from `src/index.css @theme`.
+- Ref: `docs/ui-lib.md`.

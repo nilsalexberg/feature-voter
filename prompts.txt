@@ -47,3 +47,7 @@ Summary: Created new Django app 'accounts', moved serializers, views, urls, and 
 Instruction: group these urls with same prefix
 Summary: Grouped the API URLs under an 'api/' path using a nested URL list and include().
 
+
+[2026-06-24T16:10:00-03:00]
+Instruction: /frontend-design init tailwind in frontend, create small ui lib (buttons, input fields), write concise documentation for ui lib in docs/, add instructions in AGENTS.md to prioritize ui lib usage and extend it when needed.
+Summary: Installed Tailwind v4 + @tailwindcss/vite. Created src/index.css with @theme tokens (colors, fonts). Created src/ui/Button.tsx, Input.tsx, Textarea.tsx, index.ts. Wrote docs/ui-lib.md. Added UI lib instructions to AGENTS.md.
