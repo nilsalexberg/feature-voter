@@ -77,3 +77,4 @@ Created src/services/api.ts (base HTTP client with ApiError), src/services/auth.
   - Added EmailTokenObtainPairView in views.py
   - Updated urls.py to use EmailTokenObtainPairView instead of stock TokenObtainPairView
   - Updated frontend auth.ts to send { email, password } instead of { username: email, password }
+2026-06-25T00:00:00Z | Extended api.ts with PUT/PATCH/DELETE verbs; wrote docs/api-patterns.md documenting HTTP client + hooks/service layer pattern.
