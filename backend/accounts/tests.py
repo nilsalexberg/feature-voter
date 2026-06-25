@@ -20,14 +20,14 @@ class AuthTests(APITestCase):
         self.reset_url = reverse('reset_password')
 
     def test_login_success(self):
-        data = {'username': 'testuser', 'password': 'testpassword123'}
+        data = {'email': 'testuser@example.com', 'password': 'testpassword123'}
         response = self.client.post(self.login_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('access', response.data)
         self.assertIn('refresh', response.data)
 
     def test_login_invalid(self):
-        data = {'username': 'testuser', 'password': 'wrongpassword'}
+        data = {'email': 'testuser@example.com', 'password': 'wrongpassword'}
         response = self.client.post(self.login_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -36,7 +36,7 @@ class AuthTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_me_authenticated(self):
-        data = {'username': 'testuser', 'password': 'testpassword123'}
+        data = {'email': 'testuser@example.com', 'password': 'testpassword123'}
         login_res = self.client.post(self.login_url, data, format='json')
         token = login_res.data['access']
 

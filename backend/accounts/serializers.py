@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
@@ -19,7 +20,7 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            raise serializers.ValidationError({'detail': _INVALID_CREDENTIALS})
+            raise AuthenticationFailed({'detail': _INVALID_CREDENTIALS})
 
         authenticated = authenticate(
             request=self.context.get('request'),
@@ -27,7 +28,7 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
             password=password,
         )
         if authenticated is None:
-            raise serializers.ValidationError({'detail': _INVALID_CREDENTIALS})
+            raise AuthenticationFailed({'detail': _INVALID_CREDENTIALS})
 
         self.user = authenticated
         refresh = self.get_token(authenticated)

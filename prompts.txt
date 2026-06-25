@@ -105,3 +105,4 @@ Actions: Replaced stub in voting/tests.py with 41 tests across 6 classes: AuthRe
 Prompt: implement endpoints for voting: list feature requests (pagination, sorting, filter by owner, search), create, edit (owner only), delete (owner only), vote, unvote. Write doc in docs/.
 Actions: Created voting/serializers.py (FeatureRequestSerializer with has_voted via DB annotation), voting/permissions.py (IsOwnerOrReadOnly), voting/views.py (FeatureRequestViewSet with pagination/filtering/ordering, vote @action), updated voting/urls.py (DefaultRouter). Wrote docs/api-voting.md. Django check: 0 issues.
 ---
+2026-06-25T00:00:00Z - Fix failing auth tests: changed test login data from `username` to `email` field (serializer uses email-based auth), changed serializer to raise `AuthenticationFailed` (401) instead of `ValidationError` (400) for invalid credentials.
