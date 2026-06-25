@@ -53,6 +53,21 @@ asgiref = ">=3.6"
 django = ">=4.2"
 
 [[package]]
+name = "django-unfold"
+version = "0.99.0"
+description = "Modern Django Admin"
+optional = false
+python-versions = "<4.0,>=3.12"
+groups = ["main"]
+files = [
+    {file = "django_unfold-0.99.0-py3-none-any.whl", hash = "sha256:86e5bfbf8ab614e5eb28435e2707f6948b305cbd66c4a8ef09c78c964f5b2afd"},
+    {file = "django_unfold-0.99.0.tar.gz", hash = "sha256:7f60f290a5ea533c575244b27f21ad2672cbdd52a4f059cfce9ebe4c2b28ee83"},
+]
+
+[package.dependencies]
+django = ">=5.2"
+
+[[package]]
 name = "djangorestframework"
 version = "3.17.1"
 description = "Web APIs for Django, made easy."
@@ -150,5 +165,5 @@ files = [
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.12"
-content-hash = "027696302eeb6ddaea19bd739c550312a48d7cbc886b1a97bd6528f82391cd9a"
+python-versions = ">=3.12,<4.0"
+content-hash = "a32af8a00d0d080ab48af152f28e99ba70499dc81cd02d4ff7d478212bddc306"
