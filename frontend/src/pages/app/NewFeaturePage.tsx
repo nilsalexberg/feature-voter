@@ -1,14 +1,35 @@
+import { useNavigate } from 'react-router-dom';
 import { AppLayout } from './AppLayout';
+import { FeatureForm } from '@/components/FeatureForm';
+import { useCreateFeature } from '@/hooks/useCreateFeature';
 
 export function NewFeaturePage() {
+  const navigate = useNavigate();
+  const { createFeature, isPending, error } = useCreateFeature();
+
+  async function handleSubmit(title: string, description: string) {
+    const feature = await createFeature(title, description);
+    if (feature) navigate('/');
+  }
+
   return (
     <AppLayout>
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center">
-        <span className="w-3 h-3 rounded-full bg-accent/20 ring-4 ring-accent/10" />
-        <h1 className="font-display italic text-[2rem] text-text leading-snug">Coming soon.</h1>
-        <p className="text-sm text-muted max-w-xs leading-relaxed">
-          Feature creation will be available here.
-        </p>
+      <div className="max-w-lg">
+        <div className="mb-8">
+          <h1 className="font-display italic text-[1.75rem] text-text leading-snug">
+            New feature request
+          </h1>
+          <p className="text-sm text-muted mt-1">
+            Describe what you'd like to see built.
+          </p>
+        </div>
+        <FeatureForm
+          onSubmit={handleSubmit}
+          onCancel={() => navigate('/')}
+          isPending={isPending}
+          error={error}
+          submitLabel="Submit request"
+        />
       </div>
     </AppLayout>
   );

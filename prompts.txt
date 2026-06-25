@@ -116,3 +116,4 @@ Created hooks: useFeatureRequests, useFeatureRequest, useCreateFeature, useUpdat
 Implemented full feature list with search (debounced 300ms), sort (4 ordering options), pagination, and optimistic vote/unvote. Added Select UI primitive. Created NewFeaturePage stub at /features/new. Wired route in App.tsx.
 
 2026-06-25T00:00:00Z | Refactor HomePage.tsx: extracted FeatureCard and Pagination into separate components (FeatureCard.tsx, Pagination.tsx). Updated HomePage to import and use them.
+2026-06-25T00:00:00Z - Implemented create/edit feature request pages. Created FeatureForm shared component (src/components/FeatureForm.tsx), replaced NewFeaturePage placeholder with real form using useCreateFeature, created EditFeaturePage using useFeatureRequest + useUpdateFeature, added /features/:id/edit route to App.tsx.
