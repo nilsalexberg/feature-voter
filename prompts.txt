@@ -78,3 +78,8 @@ Created src/services/api.ts (base HTTP client with ApiError), src/services/auth.
   - Updated urls.py to use EmailTokenObtainPairView instead of stock TokenObtainPairView
   - Updated frontend auth.ts to send { email, password } instead of { username: email, password }
 2026-06-25T00:00:00Z | Extended api.ts with PUT/PATCH/DELETE verbs; wrote docs/api-patterns.md documenting HTTP client + hooks/service layer pattern.
+
+---
+2026-06-25T00:00:00Z
+Prompt: Create app layout for auth-protected routes and empty home page (no auth validation yet). Redirect to home after login.
+Done: Created AppLayout.tsx (sticky header, logo, nav), HomePage.tsx (empty state with display serif), updated App.tsx to add "/" route. useLogin already called navigate('/') so redirect was already wired.
