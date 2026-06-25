@@ -2,25 +2,27 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Input } from '@/ui';
 import { AuthLayout } from './AuthLayout';
+import { useLogin } from '@/hooks/useLogin';
 
 export function LoginPage() {
+  const { login, isPending, error } = useLogin();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
 
   function validate() {
-    const next: typeof errors = {};
+    const next: typeof fieldErrors = {};
     if (!email) next.email = 'Email is required';
     if (!password) next.password = 'Password is required';
     return next;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const next = validate();
-    if (Object.keys(next).length) { setErrors(next); return; }
-    setErrors({});
-    // TODO: call auth API
+    if (Object.keys(next).length) { setFieldErrors(next); return; }
+    setFieldErrors({});
+    await login(email, password);
   }
 
   return (
@@ -32,6 +34,7 @@ export function LoginPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+          {error && <p className="text-sm text-danger">{error}</p>}
           <Input
             label="Email"
             type="email"
@@ -39,7 +42,7 @@ export function LoginPage() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            error={errors.email}
+            error={fieldErrors.email}
           />
           <div className="flex flex-col gap-1">
             <Input
@@ -49,7 +52,7 @@ export function LoginPage() {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              error={errors.password}
+              error={fieldErrors.password}
             />
             <div className="flex justify-end">
               <Link
@@ -61,8 +64,8 @@ export function LoginPage() {
             </div>
           </div>
 
-          <Button type="submit" variant="primary" size="lg" className="w-full mt-1">
-            Sign in
+          <Button type="submit" variant="primary" size="lg" className="w-full mt-1" disabled={isPending}>
+            {isPending ? 'Signing in…' : 'Sign in'}
           </Button>
         </form>
       </div>

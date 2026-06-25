@@ -1,35 +1,30 @@
 import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Input } from '@/ui';
 import { AuthLayout } from './AuthLayout';
-
-type State = 'idle' | 'done' | 'expired';
+import { useResetPassword } from '@/hooks/useResetPassword';
 
 export function ResetPasswordPage() {
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
-
+  const { submit, isPending, error, pageState } = useResetPassword();
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [errors, setErrors] = useState<{ password?: string; confirm?: string }>({});
-  const [pageState, setPageState] = useState<State>(token ? 'idle' : 'expired');
+  const [fieldErrors, setFieldErrors] = useState<{ password?: string; confirm?: string }>({});
 
   function validate() {
-    const next: typeof errors = {};
+    const next: typeof fieldErrors = {};
     if (!password) next.password = 'Password is required';
     else if (password.length < 8) next.password = 'Must be at least 8 characters';
     if (!confirm) next.confirm = 'Please confirm your password';
-    else if (confirm !== password) next.confirm = 'Passwords don\'t match';
+    else if (confirm !== password) next.confirm = "Passwords don't match";
     return next;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const next = validate();
-    if (Object.keys(next).length) { setErrors(next); return; }
-    setErrors({});
-    // TODO: call reset API with token + password
-    setPageState('done');
+    if (Object.keys(next).length) { setFieldErrors(next); return; }
+    setFieldErrors({});
+    await submit(password);
   }
 
   if (pageState === 'expired') {
@@ -82,6 +77,7 @@ export function ResetPasswordPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+          {error && <p className="text-sm text-danger">{error}</p>}
           <Input
             label="New password"
             type="password"
@@ -89,7 +85,7 @@ export function ResetPasswordPage() {
             autoComplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            error={errors.password}
+            error={fieldErrors.password}
           />
           <Input
             label="Confirm password"
@@ -98,10 +94,10 @@ export function ResetPasswordPage() {
             autoComplete="new-password"
             value={confirm}
             onChange={(e) => setConfirm(e.target.value)}
-            error={errors.confirm}
+            error={fieldErrors.confirm}
           />
-          <Button type="submit" variant="primary" size="lg" className="w-full mt-1">
-            Update password
+          <Button type="submit" variant="primary" size="lg" className="w-full mt-1" disabled={isPending}>
+            {isPending ? 'Updating…' : 'Update password'}
           </Button>
         </form>
 

@@ -67,3 +67,7 @@ Actions:
 [2026-06-25T13:58:04Z] refactor: move inline grain texture style to .grain-overlay CSS class
   - Added .grain-overlay to index.css @layer components
   - Replaced inline style block in AuthLayout.tsx:10-17 with className
+
+---
+2026-06-25T00:00:00Z | Implement auth service layer + hooks for frontend/backend integration
+Created src/services/api.ts (base HTTP client with ApiError), src/services/auth.ts (login/forgotPassword/resetPassword/me), src/hooks/useLogin.ts, src/hooks/useForgotPassword.ts, src/hooks/useResetPassword.ts. Updated LoginPage, ForgotPasswordPage, ResetPasswordPage to consume hooks. Pages no longer contain TODO stubs.

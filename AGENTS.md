@@ -11,8 +11,8 @@ Core actions:
 - System show vote count. Rank by popularity.
 
 ## Project Structure
-- `backend/`: Django project.
-- `frontend/`: React project.
+- `backend/`: Django project (poetry).
+- `frontend/`: React project (pnpm).
 - `docs/`: Markdown files for documentation.
 
 ## UI Library

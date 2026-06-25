@@ -2,23 +2,21 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Input } from '@/ui';
 import { AuthLayout } from './AuthLayout';
-
-type State = 'idle' | 'sent';
+import { useForgotPassword } from '@/hooks/useForgotPassword';
 
 export function ForgotPasswordPage() {
+  const { submit, isPending, error, isSent, reset } = useForgotPassword();
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [state, setState] = useState<State>('idle');
+  const [fieldError, setFieldError] = useState('');
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email) { setError('Email is required'); return; }
-    setError('');
-    // TODO: call reset API
-    setState('sent');
+    if (!email) { setFieldError('Email is required'); return; }
+    setFieldError('');
+    await submit(email);
   }
 
-  if (state === 'sent') {
+  if (isSent) {
     return (
       <AuthLayout>
         <div className="flex flex-col gap-6">
@@ -33,7 +31,7 @@ export function ForgotPasswordPage() {
             Didn't get it?{' '}
             <button
               type="button"
-              onClick={() => setState('idle')}
+              onClick={reset}
               className="text-accent hover:opacity-80 transition-opacity font-medium"
             >
               Send again
@@ -58,6 +56,7 @@ export function ForgotPasswordPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+          {error && <p className="text-sm text-danger">{error}</p>}
           <Input
             label="Email"
             type="email"
@@ -65,10 +64,10 @@ export function ForgotPasswordPage() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            error={error}
+            error={fieldError}
           />
-          <Button type="submit" variant="primary" size="lg" className="w-full mt-1">
-            Send reset link
+          <Button type="submit" variant="primary" size="lg" className="w-full mt-1" disabled={isPending}>
+            {isPending ? 'Sending…' : 'Send reset link'}
           </Button>
         </form>
 
