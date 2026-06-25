@@ -3,11 +3,9 @@ import { api } from './api';
 export type TokenPair = { access: string; refresh: string };
 export type User = { id: number; username: string; email: string };
 
-// SimpleJWT's TokenObtainPairView expects `username` + `password`.
-// The login form collects email; email is sent as the username field.
 export const authService = {
   login: (email: string, password: string) =>
-    api.post<TokenPair>('/api/auth/login/', { username: email, password }),
+    api.post<TokenPair>('/api/auth/login/', { email, password }),
 
   forgotPassword: (email: string) =>
     api.post<{ detail: string }>('/api/auth/forgot-password/', { email }),

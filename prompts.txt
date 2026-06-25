@@ -71,3 +71,9 @@ Actions:
 ---
 2026-06-25T00:00:00Z | Implement auth service layer + hooks for frontend/backend integration
 Created src/services/api.ts (base HTTP client with ApiError), src/services/auth.ts (login/forgotPassword/resetPassword/me), src/hooks/useLogin.ts, src/hooks/useForgotPassword.ts, src/hooks/useResetPassword.ts. Updated LoginPage, ForgotPasswordPage, ResetPasswordPage to consume hooks. Pages no longer contain TODO stubs.
+
+[2026-06-25T00:00:00Z] Fix login: API now accepts email field instead of username
+  - Added EmailTokenObtainPairSerializer (subclasses TokenObtainPairSerializer, username_field='email', looks up user by email then substitutes username for parent validate)
+  - Added EmailTokenObtainPairView in views.py
+  - Updated urls.py to use EmailTokenObtainPairView instead of stock TokenObtainPairView
+  - Updated frontend auth.ts to send { email, password } instead of { username: email, password }

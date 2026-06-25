@@ -1,8 +1,38 @@
 from rest_framework import serializers
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+_INVALID_CREDENTIALS = 'No active account found with the given credentials'
+
+
+class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
+    username_field = 'email'
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError({'detail': _INVALID_CREDENTIALS})
+
+        authenticated = authenticate(
+            request=self.context.get('request'),
+            username=user.username,
+            password=password,
+        )
+        if authenticated is None:
+            raise serializers.ValidationError({'detail': _INVALID_CREDENTIALS})
+
+        self.user = authenticated
+        refresh = self.get_token(authenticated)
+        return {'refresh': str(refresh), 'access': str(refresh.access_token)}
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
