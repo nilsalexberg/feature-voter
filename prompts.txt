@@ -90,3 +90,7 @@ Done: Created AppLayout.tsx (sticky header, logo, nav), HomePage.tsx (empty stat
 
 2026-06-25T00:00:00Z | Implement refresh token: intercept 401 in api.ts, call /api/auth/refresh/, retry original request. Concurrent 401s share single refresh promise. Refresh failure clears session and redirects to /login.
 2026-06-25T17:04:53Z | Refactor api.ts: extract doFetch helper to eliminate duplicate fetch+headers logic in request() initial call and retry call
+2026-06-25T17:20:09Z
+Prompt: Implement FeatureRequest + FeatureVote models in backend/voting/. Denormalized vote_count with atomic F() increment/decrement via signals. UniqueConstraint on (feature_request, voter). Register FeatureRequest in admin with FeatureVoteInline (readonly).
+Actions: Wrote models.py, signals.py, updated apps.py (ready hook), updated admin.py, generated 0001_initial migration.
+---
