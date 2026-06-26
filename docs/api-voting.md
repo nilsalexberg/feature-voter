@@ -6,6 +6,37 @@ Authentication: JWT Bearer token (`Authorization: Bearer <access>`). **All endpo
 
 ---
 
+## Categories
+
+### List
+
+```
+GET /api/voting/categories/
+```
+
+Returns all categories. No pagination.
+
+**Response `200`**
+
+```json
+[
+  { "id": 1, "name": "General" },
+  { "id": 2, "name": "Performance" }
+]
+```
+
+---
+
+### Retrieve
+
+```
+GET /api/voting/categories/{id}/
+```
+
+**Response `200`** — single category object.
+
+---
+
 ## Feature Requests
 
 ### List
@@ -39,6 +70,7 @@ Returns paginated list of feature requests.
       "title": "Dark mode",
       "description": "Add a dark mode toggle.",
       "author": { "id": 3, "username": "alice" },
+      "category": { "id": 1, "name": "General" },
       "vote_count": 17,
       "has_voted": true,
       "created_at": "2026-06-25T12:00:00Z",
@@ -61,7 +93,7 @@ Requires auth.
 **Body**
 
 ```json
-{ "title": "Dark mode", "description": "Add a dark mode toggle." }
+{ "title": "Dark mode", "description": "Add a dark mode toggle.", "category_id": 1 }
 ```
 
 **Response `201`** — full feature request object (author set to current user).
@@ -74,7 +106,7 @@ Requires auth.
 GET /api/voting/feature-requests/{id}/
 ```
 
-**Response `200`** — single feature request object.
+**Response `200`** — single feature request object (includes `category` nested object).
 
 ---
 
@@ -89,7 +121,7 @@ Requires auth. Only the **owner** may update.
 **Body** — any subset of writable fields:
 
 ```json
-{ "title": "Updated title" }
+{ "title": "Updated title", "category_id": 2 }
 ```
 
 **Response `200`** — updated feature request object.

@@ -5,9 +5,9 @@ from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
-from .models import FeatureRequest, FeatureVote
+from .models import Category, FeatureRequest, FeatureVote
 from .permissions import IsOwnerOrReadOnly
-from .serializers import FeatureRequestSerializer
+from .serializers import CategorySerializer, FeatureRequestSerializer
 
 _ALLOWED_ORDERINGS = {
     "vote_count": "vote_count",
@@ -15,6 +15,13 @@ _ALLOWED_ORDERINGS = {
     "created_at": "created_at",
     "-created_at": "-created_at",
 }
+
+
+class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    pagination_class = None
 
 
 class FeatureRequestPagination(PageNumberPagination):

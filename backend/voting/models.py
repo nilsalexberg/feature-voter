@@ -2,12 +2,28 @@ from django.conf import settings
 from django.db import models
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name_plural = "categories"
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class FeatureRequest(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        related_name="feature_requests",
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.PROTECT,
         related_name="feature_requests",
     )
     vote_count = models.PositiveIntegerField(default=0, db_index=True)
