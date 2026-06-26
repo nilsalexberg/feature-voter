@@ -3,6 +3,7 @@ import { AppLayout } from './AppLayout';
 import { FeatureForm } from '@/components/FeatureForm';
 import { useFeatureRequest } from '@/hooks/useFeatureRequest';
 import { useUpdateFeature } from '@/hooks/useUpdateFeature';
+import { useCategories } from '@/hooks/useCategories';
 
 export function EditFeaturePage() {
   const { id } = useParams<{ id: string }>();
@@ -11,11 +12,14 @@ export function EditFeaturePage() {
 
   const { data: feature, isPending: isLoading, error: loadError } = useFeatureRequest(featureId);
   const { updateFeature, isPending: isSaving, error: saveError } = useUpdateFeature();
+  const { categories, isPending: categoriesLoading, error: categoriesError } = useCategories();
 
-  async function handleSubmit(title: string, description: string) {
-    const updated = await updateFeature(featureId, { title, description });
+  async function handleSubmit(title: string, description: string, categoryId: number) {
+    const updated = await updateFeature(featureId, { title, description, category_id: categoryId });
     if (updated) navigate('/');
   }
+
+  const isReady = feature && !categoriesLoading && !categoriesError;
 
   return (
     <AppLayout>
@@ -27,17 +31,22 @@ export function EditFeaturePage() {
           <p className="text-sm text-muted mt-1">Update the title or description.</p>
         </div>
 
-        {isLoading && (
+        {(isLoading || categoriesLoading) && (
           <p className="text-sm text-muted">Loading…</p>
         )}
 
-        {loadError && (
-          <p className="text-sm text-danger">{loadError}</p>
+        {(loadError || categoriesError) && (
+          <p className="text-sm text-danger">{loadError ?? categoriesError}</p>
         )}
 
-        {feature && (
+        {isReady && (
           <FeatureForm
-            defaultValues={{ title: feature.title, description: feature.description }}
+            categories={categories}
+            defaultValues={{
+              title: feature.title,
+              description: feature.description,
+              category_id: feature.category.id,
+            }}
             onSubmit={handleSubmit}
             onCancel={() => navigate('/')}
             isPending={isSaving}

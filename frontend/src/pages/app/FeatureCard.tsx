@@ -64,6 +64,7 @@ export function FeatureCard({
         )}
         <p className="text-[11px] text-muted mt-1.5">
           by {feature.author.username} &middot;{' '}
+          {feature.category.name} &middot;{' '}
           {new Date(feature.created_at).toLocaleDateString()}
         </p>
       </div>

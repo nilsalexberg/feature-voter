@@ -2,13 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { AppLayout } from './AppLayout';
 import { FeatureForm } from '@/components/FeatureForm';
 import { useCreateFeature } from '@/hooks/useCreateFeature';
+import { useCategories } from '@/hooks/useCategories';
 
 export function NewFeaturePage() {
   const navigate = useNavigate();
   const { createFeature, isPending, error } = useCreateFeature();
+  const { categories, isPending: categoriesLoading, error: categoriesError } = useCategories();
 
-  async function handleSubmit(title: string, description: string) {
-    const feature = await createFeature(title, description);
+  async function handleSubmit(title: string, description: string, categoryId: number) {
+    const feature = await createFeature(title, description, categoryId);
     if (feature) navigate('/');
   }
 
@@ -23,13 +25,21 @@ export function NewFeaturePage() {
             Describe what you'd like to see built.
           </p>
         </div>
-        <FeatureForm
-          onSubmit={handleSubmit}
-          onCancel={() => navigate('/')}
-          isPending={isPending}
-          error={error}
-          submitLabel="Submit request"
-        />
+
+        {categoriesLoading && <p className="text-sm text-muted">Loading…</p>}
+
+        {categoriesError && <p className="text-sm text-danger">{categoriesError}</p>}
+
+        {!categoriesLoading && !categoriesError && (
+          <FeatureForm
+            categories={categories}
+            onSubmit={handleSubmit}
+            onCancel={() => navigate('/')}
+            isPending={isPending}
+            error={error}
+            submitLabel="Submit request"
+          />
+        )}
       </div>
     </AppLayout>
   );

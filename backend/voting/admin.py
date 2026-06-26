@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from .models import FeatureRequest, FeatureVote
+from .models import Category, FeatureRequest, FeatureVote
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ["name"]
+    search_fields = ["name"]
 
 
 class FeatureVoteInline(admin.TabularInline):

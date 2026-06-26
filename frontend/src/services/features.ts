@@ -1,16 +1,24 @@
 import { api } from './api';
 
 export type FeatureAuthor = { id: number; username: string };
+export type FeatureCategory = { id: number; name: string };
 
 export type FeatureRequest = {
   id: number;
   title: string;
   description: string;
   author: FeatureAuthor;
+  category: FeatureCategory;
   vote_count: number;
   has_voted: boolean;
   created_at: string;
   updated_at: string;
+};
+
+export type FeatureRequestWritable = {
+  title: string;
+  description: string;
+  category_id: number;
 };
 
 export type PaginatedResponse<T> = {
@@ -51,10 +59,10 @@ export const featureService = {
   get: (id: number) =>
     api.get<FeatureRequest>(`/api/voting/feature-requests/${id}/`),
 
-  create: (title: string, description: string) =>
-    api.post<FeatureRequest>('/api/voting/feature-requests/', { title, description }),
+  create: (title: string, description: string, category_id: number) =>
+    api.post<FeatureRequest>('/api/voting/feature-requests/', { title, description, category_id }),
 
-  update: (id: number, data: Partial<Pick<FeatureRequest, 'title' | 'description'>>) =>
+  update: (id: number, data: Partial<FeatureRequestWritable>) =>
     api.patch<FeatureRequest>(`/api/voting/feature-requests/${id}/`, data),
 
   remove: (id: number) =>

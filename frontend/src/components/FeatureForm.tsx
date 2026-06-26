@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Button, Input, MarkdownEditor } from '@/ui';
+import { Button, Input, MarkdownEditor, Select } from '@/ui';
+import type { FeatureCategory } from '@/services/features';
 
 interface FeatureFormProps {
-  defaultValues?: { title: string; description: string };
-  onSubmit: (title: string, description: string) => Promise<void>;
+  categories: FeatureCategory[];
+  defaultValues?: { title: string; description: string; category_id?: number };
+  onSubmit: (title: string, description: string, categoryId: number) => Promise<void>;
   onCancel?: () => void;
   isPending: boolean;
   error: string | null;
@@ -11,6 +13,7 @@ interface FeatureFormProps {
 }
 
 export function FeatureForm({
+  categories,
   defaultValues,
   onSubmit,
   onCancel,
@@ -20,6 +23,9 @@ export function FeatureForm({
 }: FeatureFormProps) {
   const [title, setTitle] = useState(defaultValues?.title ?? '');
   const [description, setDescription] = useState(defaultValues?.description ?? '');
+  const [categoryId, setCategoryId] = useState<number | undefined>(
+    defaultValues?.category_id ?? categories[0]?.id,
+  );
   const [titleError, setTitleError] = useState<string | undefined>();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -29,7 +35,8 @@ export function FeatureForm({
       return;
     }
     setTitleError(undefined);
-    await onSubmit(title.trim(), description.trim());
+    if (categoryId === undefined) return;
+    await onSubmit(title.trim(), description.trim(), categoryId);
   }
 
   return (
@@ -44,6 +51,18 @@ export function FeatureForm({
         disabled={isPending}
         autoFocus
       />
+      <Select
+        label="Category"
+        value={categoryId ?? ''}
+        onChange={(e) => setCategoryId(Number(e.target.value))}
+        disabled={isPending || categories.length === 0}
+      >
+        {categories.map((c) => (
+          <option key={c.id} value={c.id}>
+            {c.name}
+          </option>
+        ))}
+      </Select>
       <MarkdownEditor
         label="Description"
         placeholder="Describe the feature in more detail…"
@@ -53,7 +72,7 @@ export function FeatureForm({
         disabled={isPending}
       />
       <div className="flex items-center gap-3 pt-1">
-        <Button type="submit" variant="primary" disabled={isPending}>
+        <Button type="submit" variant="primary" disabled={isPending || categoryId === undefined}>
           {isPending ? 'Saving…' : submitLabel}
         </Button>
         {onCancel && (

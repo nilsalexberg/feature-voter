@@ -7,10 +7,10 @@ type State = { isPending: boolean; error: string | null };
 export function useCreateFeature() {
   const [state, setState] = useState<State>({ isPending: false, error: null });
 
-  async function createFeature(title: string, description: string): Promise<FeatureRequest | undefined> {
+  async function createFeature(title: string, description: string, category_id: number): Promise<FeatureRequest | undefined> {
     setState({ isPending: true, error: null });
     try {
-      const feature = await featureService.create(title, description);
+      const feature = await featureService.create(title, description, category_id);
       setState({ isPending: false, error: null });
       return feature;
     } catch (error) {

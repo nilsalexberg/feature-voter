@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { featureService, type FeatureRequest } from '@/services/features';
+import { featureService, type FeatureRequest, type FeatureRequestWritable } from '@/services/features';
 import { ApiError } from '@/services/api';
 
 type State = { isPending: boolean; error: string | null };
@@ -9,7 +9,7 @@ export function useUpdateFeature() {
 
   async function updateFeature(
     id: number,
-    data: Partial<Pick<FeatureRequest, 'title' | 'description'>>,
+    data: Partial<FeatureRequestWritable>,
   ): Promise<FeatureRequest | undefined> {
     setState({ isPending: true, error: null });
     try {
