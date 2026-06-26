@@ -140,3 +140,4 @@ Response: AppLayout: added logoutOpen state, replaced email+logout with Dropdown
 2026-06-25T00:00:00Z | Fix reset password: email quoted-printable encoding corrupting uidb64/token query params. Changed reset link to path params (/reset-password/:uidb64/:token), updated App.tsx route and useResetPassword hook to use useParams.
 2026-06-26T01:24:30Z - Write README.md in project root with stack info, setup/run/test commands, project structure, API summary, and frontend conventions.
 2026-06-26T13:40:32Z | Add 'Mine' filter toggle to HomePage — passes author=currentUser.id to useFeatureRequests when active; resets page+voteOverrides on toggle; disabled when no user.
+2026-06-26T14:33:44Z | Add 500ms dev-mode delay to all API requests for loading state testing. Edited frontend/src/services/api.ts.

@@ -10,7 +10,7 @@ import { useVote } from '@/hooks/useVote';
 import { useUnvote } from '@/hooks/useUnvote';
 import type { FeatureRequestOrdering } from '@/services/features';
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 5;
 
 const ORDERING_OPTIONS: { label: string; value: FeatureRequestOrdering }[] = [
   { label: 'Most votes', value: '-vote_count' },

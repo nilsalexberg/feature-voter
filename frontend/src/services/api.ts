@@ -1,5 +1,8 @@
 const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
 
+const DEV_DELAY_MS = 500;
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export class ApiError extends Error {
   constructor(
     public readonly status: number,
@@ -47,6 +50,8 @@ function doFetch(path: string, options: RequestInit | undefined, token: string |
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  if (import.meta.env.DEV) await sleep(DEV_DELAY_MS);
+
   const token = localStorage.getItem('access_token');
   const response = await doFetch(path, options, token);
 
