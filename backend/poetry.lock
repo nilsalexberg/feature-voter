@@ -53,19 +53,19 @@ asgiref = ">=3.6"
 django = ">=4.2"
 
 [[package]]
-name = "django-unfold"
-version = "0.99.0"
-description = "Modern Django Admin"
+name = "django-jazzmin"
+version = "3.0.5"
+description = "Drop-in theme for django admin, that utilises AdminLTE 3 & Bootstrap 5 to make yo' admin look jazzy"
 optional = false
-python-versions = "<4.0,>=3.12"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "django_unfold-0.99.0-py3-none-any.whl", hash = "sha256:86e5bfbf8ab614e5eb28435e2707f6948b305cbd66c4a8ef09c78c964f5b2afd"},
-    {file = "django_unfold-0.99.0.tar.gz", hash = "sha256:7f60f290a5ea533c575244b27f21ad2672cbdd52a4f059cfce9ebe4c2b28ee83"},
+    {file = "django_jazzmin-3.0.5-py3-none-any.whl", hash = "sha256:578fb1fc0a1b7e3b8472d2692ace60b1584ccd937c3828e2c9a89bdf94067f94"},
+    {file = "django_jazzmin-3.0.5.tar.gz", hash = "sha256:7e39b029bddbb60f3aaf9897bd009f39f8f2bdc8a7d86beed1e943706dd79692"},
 ]
 
 [package.dependencies]
-django = ">=5.2"
+django = ">=4.2"
 
 [[package]]
 name = "djangorestframework"
@@ -166,4 +166,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "a32af8a00d0d080ab48af152f28e99ba70499dc81cd02d4ff7d478212bddc306"
+content-hash = "59777ff9cef2351454da2c2d86053f60b2b1cd9103003e5d9965e33197c32ff1"
