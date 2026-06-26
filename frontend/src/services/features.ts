@@ -40,6 +40,7 @@ export type FeatureRequestParams = {
   ordering?: FeatureRequestOrdering;
   search?: string;
   author?: number;
+  category?: number;
 };
 
 export const featureService = {
@@ -50,6 +51,7 @@ export const featureService = {
     if (params?.ordering) query.set('ordering', params.ordering);
     if (params?.search) query.set('search', params.search);
     if (params?.author !== undefined) query.set('author', String(params.author));
+    if (params?.category !== undefined) query.set('category', String(params.category));
     const qs = query.toString();
     return api.get<PaginatedResponse<FeatureRequest>>(
       `/api/voting/feature-requests/${qs ? `?${qs}` : ''}`,

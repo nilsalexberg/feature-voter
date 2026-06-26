@@ -8,6 +8,7 @@ import { useFeatureRequests } from '@/hooks/useFeatureRequests';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useVote } from '@/hooks/useVote';
 import { useUnvote } from '@/hooks/useUnvote';
+import { useCategories } from '@/hooks/useCategories';
 import type { FeatureRequestOrdering } from '@/services/features';
 
 const PAGE_SIZE = 5;
@@ -29,12 +30,14 @@ export function HomePage() {
   const [ordering, setOrdering] = useState<FeatureRequestOrdering>('-vote_count');
   const [page, setPage] = useState(1);
   const [onlyMine, setOnlyMine] = useState(false);
+  const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
   const [voteOverrides, setVoteOverrides] = useState<Map<number, VoteOverride>>(new Map());
   const [pendingVoteId, setPendingVoteId] = useState<number | null>(null);
 
   const { user: currentUser } = useCurrentUser();
   const { vote } = useVote();
   const { unvote } = useUnvote();
+  const { categories } = useCategories();
 
   const { data, isPending, error, refetch } = useFeatureRequests({
     page,
@@ -42,6 +45,7 @@ export function HomePage() {
     ordering,
     search: search || undefined,
     author: onlyMine && currentUser ? currentUser.id : undefined,
+    category: categoryId,
   });
 
   useEffect(() => {
@@ -54,7 +58,7 @@ export function HomePage() {
 
   useEffect(() => {
     setVoteOverrides(new Map());
-  }, [page, search, ordering, onlyMine]);
+  }, [page, search, ordering, onlyMine, categoryId]);
 
   async function handleVoteToggle(id: number, hasVoted: boolean, voteCount: number) {
     if (pendingVoteId !== null) return;
@@ -126,6 +130,24 @@ export function HomePage() {
               ))}
             </Select>
           </div>
+          {categories.length > 0 && (
+            <div className="w-40">
+              <Select
+                value={categoryId ?? ''}
+                onChange={(e) => {
+                  setCategoryId(e.target.value ? Number(e.target.value) : undefined);
+                  setPage(1);
+                }}
+              >
+                <option value="">All categories</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
+          )}
           <Button
             variant={onlyMine ? 'secondary' : 'ghost'}
             onClick={() => {

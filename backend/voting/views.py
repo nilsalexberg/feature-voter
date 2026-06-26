@@ -56,6 +56,13 @@ class FeatureRequestViewSet(viewsets.ModelViewSet):
             except (ValueError, TypeError):
                 qs = qs.none()
 
+        category = self.request.query_params.get("category")
+        if category:
+            try:
+                qs = qs.filter(category_id=int(category))
+            except (ValueError, TypeError):
+                qs = qs.none()
+
         search = self.request.query_params.get("search")
         if search:
             qs = qs.filter(Q(title__icontains=search) | Q(description__icontains=search))

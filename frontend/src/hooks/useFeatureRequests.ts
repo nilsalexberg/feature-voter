@@ -25,7 +25,7 @@ export function useFeatureRequests(params?: FeatureRequestParams) {
         setState({ data: null, isPending: false, error: 'Failed to load feature requests.' }),
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params?.page, params?.page_size, params?.ordering, params?.search, params?.author, refetchKey]);
+  }, [params?.page, params?.page_size, params?.ordering, params?.search, params?.author, params?.category, refetchKey]);
 
   return { ...state, refetch: () => setRefetchKey((k) => k + 1) };
 }

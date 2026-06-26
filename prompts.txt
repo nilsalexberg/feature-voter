@@ -145,3 +145,4 @@ Response: AppLayout: added logoutOpen state, replaced email+logout with Dropdown
 2026-06-26T16:29:59Z | add categories in frontend: service (module-level cache), useCategories hook, category field on FeatureRequest type, updated create/update service+hooks to accept category_id, Select in FeatureForm, category shown in FeatureCard, wired in NewFeaturePage + EditFeaturePage
 2026-06-26T16:33:08Z - Register Category model in Django admin (CategoryAdmin with list_display and search_fields)
 2026-06-26T16:42:42Z | Remove django-unfold, add jazzmin. Swapped in INSTALLED_APPS and pyproject.toml, ran poetry update.
+2026-06-26T00:00:00Z — Add category filter: backend ?category= param, docs update, frontend Select in HomePage

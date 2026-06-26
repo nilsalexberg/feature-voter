@@ -56,6 +56,7 @@ Returns paginated list of feature requests.
 | `ordering` | string | `-vote_count` | Sort field. Allowed: `vote_count`, `-vote_count`, `created_at`, `-created_at` |
 | `search` | string | — | Case-insensitive match on `title` or `description` |
 | `author` | int | — | Filter by author user ID |
+| `category` | int | — | Filter by category ID |
 
 **Response `200`**
 
