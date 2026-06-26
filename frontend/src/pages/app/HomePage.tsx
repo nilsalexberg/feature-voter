@@ -107,7 +107,7 @@ export function HomePage() {
           <Button onClick={() => navigate('/features/new')}>New request</Button>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="flex-1">
             <Input
               placeholder="Search features…"
@@ -115,50 +115,52 @@ export function HomePage() {
               onChange={(e) => setSearchInput(e.target.value)}
             />
           </div>
-          <div className="w-44">
-            <Select
-              value={ordering}
-              onChange={(e) => {
-                setOrdering(e.target.value as FeatureRequestOrdering);
-                setPage(1);
-              }}
-            >
-              {ORDERING_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </Select>
-          </div>
-          {categories.length > 0 && (
-            <div className="w-40">
+          <div className="flex gap-3 items-center">
+            <div className="flex-1 sm:w-44 sm:flex-none">
               <Select
-                value={categoryId ?? ''}
+                value={ordering}
                 onChange={(e) => {
-                  setCategoryId(e.target.value ? Number(e.target.value) : undefined);
+                  setOrdering(e.target.value as FeatureRequestOrdering);
                   setPage(1);
                 }}
               >
-                <option value="">All categories</option>
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
+                {ORDERING_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
                   </option>
                 ))}
               </Select>
             </div>
-          )}
-          <Button
-            variant={onlyMine ? 'secondary' : 'ghost'}
-            onClick={() => {
-              setOnlyMine((v) => !v);
-              setPage(1);
-            }}
-            disabled={!currentUser}
-            className="h-9"
-          >
-            Mine
-          </Button>
+            {categories.length > 0 && (
+              <div className="flex-1 sm:w-40 sm:flex-none">
+                <Select
+                  value={categoryId ?? ''}
+                  onChange={(e) => {
+                    setCategoryId(e.target.value ? Number(e.target.value) : undefined);
+                    setPage(1);
+                  }}
+                >
+                  <option value="">All categories</option>
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </Select>
+              </div>
+            )}
+            <Button
+              variant={onlyMine ? 'secondary' : 'ghost'}
+              onClick={() => {
+                setOnlyMine((v) => !v);
+                setPage(1);
+              }}
+              disabled={!currentUser}
+              className="h-9 shrink-0"
+            >
+              Mine
+            </Button>
+          </div>
         </div>
 
         {isPending && (
