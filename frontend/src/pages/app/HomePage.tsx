@@ -28,19 +28,21 @@ export function HomePage() {
   const [search, setSearch] = useState('');
   const [ordering, setOrdering] = useState<FeatureRequestOrdering>('-vote_count');
   const [page, setPage] = useState(1);
+  const [onlyMine, setOnlyMine] = useState(false);
   const [voteOverrides, setVoteOverrides] = useState<Map<number, VoteOverride>>(new Map());
   const [pendingVoteId, setPendingVoteId] = useState<number | null>(null);
+
+  const { user: currentUser } = useCurrentUser();
+  const { vote } = useVote();
+  const { unvote } = useUnvote();
 
   const { data, isPending, error, refetch } = useFeatureRequests({
     page,
     page_size: PAGE_SIZE,
     ordering,
     search: search || undefined,
+    author: onlyMine && currentUser ? currentUser.id : undefined,
   });
-
-  const { user: currentUser } = useCurrentUser();
-  const { vote } = useVote();
-  const { unvote } = useUnvote();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,7 +54,7 @@ export function HomePage() {
 
   useEffect(() => {
     setVoteOverrides(new Map());
-  }, [page, search, ordering]);
+  }, [page, search, ordering, onlyMine]);
 
   async function handleVoteToggle(id: number, hasVoted: boolean, voteCount: number) {
     if (pendingVoteId !== null) return;
@@ -124,6 +126,17 @@ export function HomePage() {
               ))}
             </Select>
           </div>
+          <Button
+            variant={onlyMine ? 'secondary' : 'ghost'}
+            onClick={() => {
+              setOnlyMine((v) => !v);
+              setPage(1);
+            }}
+            disabled={!currentUser}
+            className="h-9"
+          >
+            Mine
+          </Button>
         </div>
 
         {isPending && (
