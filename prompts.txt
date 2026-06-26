@@ -138,3 +138,4 @@ Response: AppLayout: added logoutOpen state, replaced email+logout with Dropdown
 2026-06-25T22:16:22Z — Add dark/light theme selector to AppLayout nav. Created useTheme hook (localStorage + prefers-color-scheme), dark token overrides in index.css (.dark class on html), sun/moon icon toggle button in nav.
 2026-06-25T22:20:40Z — Replace hand-rolled SVG icons with lucide-react. Sun/Moon in AppLayout theme toggle, Pencil/Trash2 in FeatureCard edit/delete actions.
 2026-06-25T00:00:00Z | Fix reset password: email quoted-printable encoding corrupting uidb64/token query params. Changed reset link to path params (/reset-password/:uidb64/:token), updated App.tsx route and useResetPassword hook to use useParams.
+2026-06-26T01:24:30Z - Write README.md in project root with stack info, setup/run/test commands, project structure, API summary, and frontend conventions.
